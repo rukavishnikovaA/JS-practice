@@ -1,42 +1,103 @@
-let buttonEnter = document.getElementById('enter')
-let buttonInput = document.getElementById('userinput')
-let ul = document.querySelector('ul')
-
-function inputLength() {
-    return userInput.value.length > 0
-}
-
-function createTodo() {
-    const li = document.createElement('li')
-    li.innerHTML = userInput.value;
-    ul.appendChild(li)
-    userInput.value = ''
-
-    const deleteButton = document.createElement('button')
-    deleteButton.appendChild(document.createTextNode('x'));
-    li.appendChild(deleteButton)
-    deleteButton.addEventListener('click', deleteToDoItem)
-
-    li.addEventListener('click', function() {
-        li.classList.toggle('done');
-    })
-
-    function deleteToDoItem() {
-        ul.removeChild(li)
+$(function () {
+    const buttonEnter = $('#enter')
+    const userInput = $('#userInput')
+    const ul = $('ul')
+  
+    const items = JSON.parse(localStorage.getItem('todos') || '[]');
+  
+    function saveItems() {
+      localStorage.setItem('todos', JSON.stringify(items))
     }
-}
-
-function changeListAfterKeypress(event) {
-    if (inputLength() && event.which == 13) {
-        createTodo()
+  
+    function addItem(text) {
+      const item = {
+        id: Date.now(),
+        text,
+        done: false,
+      };
+  
+      items.push(item);
+      saveItems();
+  
+      return item;
     }
-}
-
-function changeListAfterClick() {
-    if (inputLength()) {
-        createTodo()
+  
+    function removeItem(id) {
+      const idx = items.findIndex(i => i.id === id)
+  
+      if (idx > -1) {
+        items.splice(idx, 1)
+      }
+  
+      saveItems();
     }
-}
-
-userInput.addEventListener('keypress', changeListAfterKeypress)
-buttonEnter.addEventListener('click', changeListAfterClick)
+  
+    function toggleItem(id) {
+      const idx = items.findIndex(i => i.id === id)
+  
+      if (idx > -1) {
+        items[idx].done = !items[idx].done;
+      }
+  
+      saveItems();
+    }
+  
+    function createItemDOM(item) {
+      const id = item.id;
+      const li = $('<li>')
+      li.html(item.text);
+      ul.append(li)
+  
+      li.click(function() {
+        toggleItem(id)
+        $(this).toggleClass('done')
+      })
+  
+      if (item.done) {
+        li.toggleClass('done')
+      }
+  
+      const deleteButton = $('<button>')
+      deleteButton.html('x')
+      li.append(deleteButton)
+      deleteButton.click(function () {
+        removeItem(id);
+        li.remove();
+      })
+    }
+  
+    function renderItems() {
+      ul.html('');
+  
+      items.forEach((i) => {
+        createItemDOM(i)
+      });
+    }
+  
+    function inputLength() {
+        return userInput.val().length > 0
+    }
+  
+    function createTodo() {
+      const item = addItem(userInput.val())
+      createItemDOM(item);
+      userInput.val('')
+    }
+  
+    function changeListAfterKeypress(event) {
+        if (inputLength() && event.which == 13) {
+          createTodo()
+        }
+    }
+  
+    function changeListAfterClick() {
+        if (inputLength()) {
+            createTodo()
+        }
+    }
+  
+    userInput.keypress(changeListAfterKeypress)
+    buttonEnter.click(changeListAfterClick);
+  
+    renderItems();
+  });
