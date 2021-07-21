@@ -45,7 +45,11 @@ $(function () {
     function createItemDOM(item) {
       const id = item.id;
       const li = $('<li>')
-      li.html(item.text);
+      const date = new Date(item.id);
+      const dateString = date.getDate() + "." + (date.getMonth() + 1) + " " + date.getHours() + ":" + date.getMinutes();
+      const text = item.text;
+      li.html("<span>" + text + "</span><span class='d'>" + dateString + "</span>");
+      li.html();
       ul.append(li)
   
       li.click(function() {

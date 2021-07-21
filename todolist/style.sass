@@ -1,8 +1,29 @@
 body 
-	background: #04A1BF
+	background: #cacaf7
 	text-align: center
-	font-family: 'Open Sans', sans-serif
+	font-family: 'Nunito', sans-serif
 
+.row
+	margin: auto
+	width: 600px
+
+.listItems
+	background-color: #8f8eeb
+	max-width: 650px
+	min-height: 200px
+	margin: auto
+	margin-top: 25px
+	border-radius: 25px
+
+.d
+	margin-left: auto
+	font-size: 12px
+	color: #8b7a99
+	padding-right: 5px
+
+.container
+	margin-top: 100px
+	margin-bottom: 100px
 
 .intro 
 	margin: 30px 0px
@@ -13,6 +34,8 @@ h1
 	color: #ffffff
 	text-transform: uppercase
 	font-weight: 800
+	font-size: 70px
+	font-family: 'Raleway', sans-serif
 
 
 p 
@@ -30,7 +53,7 @@ p
 
 
 #third 
-	color: #025F70
+	color: #3d3faa
 	margin-bottom: 30px
 
 
@@ -39,8 +62,8 @@ p
 	border: none
 	padding: 5px 15px
 	border-radius: 5px
-	color: #04A1BF
-	background-color: #025F70
+	color: #ede7f3
+	background-color: #7e61cc
 	transition: all 0.75s ease
 	-webkit-transition: all 0.75s ease
 	-moz-transition: all 0.75s ease
@@ -50,35 +73,56 @@ p
 
 
 #enter:hover
-	background-color: #02798F
+	background-color: #3d3faa
 	color: #FFCD5D
 
 
 ul 
 	text-align: left
+	display: flex
+	flex-direction: column
 	margin-top: 20px
 
-
+@keyframes li-enter
+	from
+		transform: translateY(500px)
+	to
+		transform: translateY(0px)
 
 li 
+	width: 100%
+	margin: auto
 	list-style: none
 	padding: 10px 20px
 	color: #ffffff
 	text-transform: capitalize
 	font-weight: 600
-	border: 2px solid #025f70
+	border: 2px solid #e1d3f0
 	border-radius: 5px
+	display: flex
+	align-items: center
+	justify-content: flex-start
 	margin-bottom: 10px
-	background: #4EB9CD
+	background: #e1d3f0
 	transition: all 0.75s ease
 	-webkit-transition: all 0.5s ease
 	-moz-transition: all 0.5s ease
 	-ms-transition: all 0.5s ease
 	-o-transition: all 0.5 ease
+	animation: 0.4s ease li-enter
+
+	&:hover 
+		transform: scale(1.05)
+	
+	&:last-child 
+		margin-bottom: 0
+	
+	
 
 
 li:hover 
-	background: #76CFE0
+	background: #8560c0
+	border: #8560c0
 
 
 li > button 
@@ -86,7 +130,7 @@ li > button
 	background: none
 	border: none
 	float: right
-	color: #025f70
+	color: #4d4b70
 	font-weight: 800
 
 
@@ -99,10 +143,12 @@ input
 
 
 .done 
-	background: #51DF70 !important
-	color: #00891E
+	background: #cae997 !important
+	border:#a9df51
+	color: #419784
 
 
 .delete 
 	display: none
+
 
